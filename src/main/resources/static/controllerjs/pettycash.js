@@ -64,7 +64,13 @@ const refreshPettyCashHeaderTable = () => {
         {dataType: 'function', propertyName: getFromAccount},
     ];
 
+    if ($.fn.DataTable.isDataTable("#pettyCashHeaderTable")){
+        $("#pettyCashHeaderTable").dataTable().destroy();
+    }
+
     fillDataIntoTable(pettyCashHeaderTable, pettyCashHeadersList, displayProperty, true, divModifyButton2)
+    $("#pettyCashHeaderTable").dataTable()
+
 
 }
 
@@ -244,6 +250,36 @@ const refillPettyCashHeader = async (ob)=>{
 const handelResetPettyCashHeader = ()=>{
     window.location.reload();
 }
+
+
+const loadFullPettyCashHeaderTable = ()=>{
+
+    divPettyCashHeader.classList.add('d-none');
+    divPettyCashFullHeader.classList.remove('d-none')
+
+    const fullHeadersList = ajaxGetRequest("/pettyCashHeader/findAll");
+
+    const displayProperty = [
+        {dataType: 'text', propertyName: 'petty_cash_header_date'},
+        {dataType: 'function', propertyName: getCompany},
+        {dataType: 'function', propertyName: getPettyCashHeaderNumber},
+        {dataType: 'function', propertyName: getFromAccount},
+    ];
+
+    if ($.fn.DataTable.isDataTable("#tableFullPettyCashHeader")){
+        $("#tableFullPettyCashHeader").DataTable.destroy();
+    }
+
+    fillDataIntoTable(tableFullPettyCashHeader, fullHeadersList, displayProperty, true, divModifyButton2)
+    $("#tableFullPettyCashHeader").DataTable();
+
+
+}
+
+
+
+
+
 
 
 
