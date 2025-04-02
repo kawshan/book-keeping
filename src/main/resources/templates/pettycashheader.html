@@ -40,7 +40,7 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-warning fw-bold"
                         style="width: 15%; color: whitesmoke; border: 1px solid black;"
-                        onclick="refillProductHeader(window['editOb'],window['editRow'])">
+                        onclick="refillPettyCashHeader(window['editOb'],window['editRow'])">
                     <i class="fa-solid fa-recycle fa-beat"></i> Refill
                 </button>
                 <button type="button" class="btn btn-danger fw-bold"
@@ -60,7 +60,7 @@
 
 
     <div class="col-md-3">
-        <button type="button" class="btn btn-danger" onclick="handelResetProductionHeader()">reset</button>
+        <button type="button" class="btn btn-danger" onclick="handelResetPettyCashHeader()">reset</button>
         <button type="button" class="btn btn-success" style="pointer-events: all" id="btnSubmitInvoiceHeader"
                 onclick="saveOrUpdatePettyCashHeader()">Submit
         </button>
@@ -152,12 +152,12 @@
 
                 <td style="width: 10%">
                     <label for="textPettyCashDetailsDescription" class="form-label">Description</label>
-                    <input type="number" id="textPettyCashDetailsDescription" class="form-control text-start fw-bold" style="height: 60px;" placeholder="Enter Description" onkeyup="textValidator(this,'','pettyCashDetails','petty_cash_description')">
+                    <input type="text" id="textPettyCashDetailsDescription" class="form-control text-start fw-bold" style="height: 60px;" placeholder="Enter Description" onkeyup="textValidator(this,'','pettyCashDetails','petty_cash_description')">
                 </td>
 
 
                 <td style="width: 10%">
-                    <label for="textPettyCashDetailsReferenceNum" class="form-label">Reference No</label>
+                    <label for="textPettyCashDetailsReferenceNum" class="form-label">Reference</label>
                     <input type="text" id="textPettyCashDetailsReferenceNum" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Reference No" onkeyup="textValidator(this,'','pettyCashDetails','petty_cash_details_reference_number')">
                 </td>
 
@@ -168,8 +168,8 @@
 
 
                 <td class="text-end">
-                    <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all;" onclick="updatePettyCashDetails()" id="buttonProductionDetailsUpdate">Update</button>
-                    <button type="button" class="btn btn-lg btn-success" style="pointer-events: all;" onclick="addPettyCashDetails()" id="buttonProductionDetailsAdd">Add</button>
+                    <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all; margin-top: 20px" onclick="updatePettyCashDetails()" id="buttonPettyCashDetailsUpdate">Update</button>
+                    <button type="button" class="btn btn-lg btn-success" style="pointer-events: all; margin-top: 20px" onclick="addPettyCashDetails()" id="buttonPettyCashDetailsAdd">Add</button>
                 </td>
 
 

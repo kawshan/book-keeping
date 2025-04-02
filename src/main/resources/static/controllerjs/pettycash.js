@@ -32,6 +32,14 @@ const refreshPettyCashHeaderForm = () => {
     fromAccountList = ajaxGetRequest("/fromAccount/findAll")
     fillDataIntoSelect(selectFromAcc, 'Select Account', fromAccountList, 'account_name');
 
+
+    buttonPettyCashDetailsUpdate.disabled=true;
+    buttonPettyCashDetailsUpdate.style.cursor="not-allowed";
+
+
+    buttonPettyCashDetailsAdd.disabled=true;
+    buttonPettyCashDetailsAdd.style.cursor="not-allowed";
+
 }
 
 
@@ -112,6 +120,13 @@ const saveOrUpdatePettyCashHeader = () => {
                     alert(`Save Successful`);
                     refreshPettyCashHeaderTable();
                     refreshColoursToDefault();
+
+
+                    buttonPettyCashDetailsAdd.disabled=false;
+                    buttonPettyCashDetailsAdd.style.cursor="default";
+
+
+
                     textNumber.value = Number(postServerResponse.petty_cash_header_number);
                     textCode.value = postServerResponse.petty_cash_header_code
                     console.log(`saved id is ${postServerResponse.id}`);
@@ -123,6 +138,7 @@ const saveOrUpdatePettyCashHeader = () => {
                     pettyCashHeader.petty_cash_header_number = textNumber.value
                 } else {
                     alert(`Save Unsuccessful`);
+
                 }
             }
         } else {
@@ -187,6 +203,8 @@ const customizeFromAccount = (fieldId) => {
 
 
 }
+
+
 const customizeLedgerAccounts = (fieldId)=>{
     selectedValue = JSON.parse(fieldId.value);
 
@@ -197,12 +215,40 @@ const customizeLedgerAccounts = (fieldId)=>{
 }
 
 
+const refillPettyCashHeader = async (ob)=>{
+
+    pettyCashHeader = JSON.parse(JSON.stringify(ob));
+    oldpettyCashHeader = JSON.parse(JSON.stringify(ob));
+
+
+    textDate.value= pettyCashHeader.petty_cash_header_date;
+    textNumber.value= pettyCashHeader.petty_cash_header_number;
+    textCode.value= pettyCashHeader.petty_cash_header_code;
+
+    await fillDataIntoSelect(selectCompany, 'Select Company', companiesList, 'company_master_name',pettyCashHeader.company_master_id.company_master_name);
+
+    const selectedValue = JSON.parse(selectCompany.value);
+    const fromAccountServerResponse = ajaxGetRequest(`/fromAccount/getFromCompanyId/${selectedValue.id}`);
+    fillDataIntoSelect(selectFromAcc, 'Select Account', fromAccountServerResponse, 'account_name',pettyCashHeader.from_account_id.account_name);
+
+    refreshPettyCashDetailsTable();
+
+    refreshPettyCashDetailsForm();
+
+
+    buttonPettyCashDetailsAdd.disabled=false;
+    buttonPettyCashDetailsAdd.style.cursor="default";
+}
+
+
+const handelResetPettyCashHeader = ()=>{
+    window.location.reload();
+}
 
 
 
 
-
-// header section is finished from here we are gonna start details section
+// header section is finished from here we are going to start details section
 
 
 
@@ -308,6 +354,15 @@ const refillPettyCashDetails = (ob)=>{
     const fromAccountServerResponse = ajaxGetRequest(`/ledgerAccount/getByCompanyId/${selectedValue.id}`);
     fillDataIntoSelect(selectLedgerAcc,'Select Ledger Account',fromAccountServerResponse,'ledger_account_name',pettyCashDetails.ledger_account_id.ledger_account_name);
 
+    buttonPettyCashDetailsUpdate.disabled=false;
+    buttonPettyCashDetailsUpdate.style.cursor="default";
+
+
+    buttonPettyCashDetailsAdd.disabled=true;
+    buttonPettyCashDetailsAdd.style.cursor="not-allowed";
+
+
+
 }
 
 
@@ -333,8 +388,6 @@ const checkUpdatesPettyCashDetails = ()=>{
 
 
 
-
-
 const updatePettyCashDetails = ()=>{
 
     const errors = checkErrorsPettyCashDetails();
@@ -348,6 +401,16 @@ const updatePettyCashDetails = ()=>{
                     alert(`update Successful`);
                     refreshPettyCashDetailsForm();
                     refreshPettyCashDetailsTable();
+                    divModifyButton3.classList.add('d-none');
+
+
+                    buttonPettyCashDetailsUpdate.disabled=true;
+                    buttonPettyCashDetailsUpdate.style.cursor="not-allowed";
+
+
+                    buttonPettyCashDetailsAdd.disabled=false;
+                    buttonPettyCashDetailsAdd.style.cursor="default";
+
                 }
             }
         }else {
