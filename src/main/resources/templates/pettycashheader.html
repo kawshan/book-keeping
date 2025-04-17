@@ -82,13 +82,13 @@
     <form onsubmit="return false">
 
         <div class="row mt-2" style="margin-bottom: 20px">
-            <div class="col-md-5"></div>
-            <div class="col-md-1">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
                 <label for="selectCompany" class="form-label">Select Company</label>
                 <select id="selectCompany" class="form-select" style="color: gray; height: 80%; font-weight: bold"
                         onchange="selectDBValidator(this,'','pettyCashHeader','company_master_id'); customizeFromAccount(this); customizeLedgerAccounts(this)"></select>
             </div>
-            <div class="col-md-5"></div>
+            <div class="col-md-4"></div>
         </div>
 
 
@@ -102,7 +102,7 @@
 
             <div class="col-md-1">
                 <label for="textNumber" class="form-label">Number</label>
-                <input type="text" id="textNumber" disabled class="form-control fw-bold" style="height: 80%"
+                <input type="number" id="textNumber" disabled class="form-control fw-bold" style="height: 80%"
                        placeholder="Will Be Auto generated">
             </div>
 

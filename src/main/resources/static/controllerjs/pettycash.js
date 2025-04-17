@@ -65,11 +65,11 @@ const refreshPettyCashHeaderTable = () => {
     ];
 
     if ($.fn.DataTable.isDataTable("#pettyCashHeaderTable")){
-        $("#pettyCashHeaderTable").dataTable().destroy();
+        $("#pettyCashHeaderTable").DataTable().destroy();
     }
 
     fillDataIntoTable(pettyCashHeaderTable, pettyCashHeadersList, displayProperty, true, divModifyButton2)
-    $("#pettyCashHeaderTable").dataTable()
+    $("#pettyCashHeaderTable").dataTable();
 
 
 }

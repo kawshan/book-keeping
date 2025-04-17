@@ -1,5 +1,6 @@
 package com.packleaf.bookkeeping.controller;
 
+import com.packleaf.bookkeeping.dao.PettyCashDetailsDao;
 import com.packleaf.bookkeeping.dao.PettyCashHeaderDao;
 import com.packleaf.bookkeeping.entity.PettyCashDetails;
 import com.packleaf.bookkeeping.entity.PettyCashHeader;
@@ -17,6 +18,9 @@ public class PettyCashHeaderController {
 
     @Autowired
     private PettyCashHeaderDao pettyCashHeaderDao;
+
+    @Autowired
+    private PettyCashDetailsDao pettyCashDetailsDao;
 
     @GetMapping(value = "/findAll")
     public List<PettyCashHeader> getAllPettyCashHeader() {
@@ -80,7 +84,7 @@ public class PettyCashHeaderController {
     @DeleteMapping
     public String deleteMapping(@RequestBody PettyCashHeader pettyCashHeader){
         try {
-            // also need to handel delete petty cash details
+            pettyCashDetailsDao.deletePettyCashDetailsByHeaderCode(pettyCashHeader.getPetty_cash_header_code());
             pettyCashHeaderDao.delete(pettyCashHeader);
             return "ok";
         }catch (Exception e){
