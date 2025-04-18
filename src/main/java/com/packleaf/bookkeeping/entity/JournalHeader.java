@@ -28,6 +28,10 @@ public class JournalHeader {
     @Column(name = "journal_header_date")
     private LocalDate journal_header_date;
 
+    @ManyToOne
+    @JoinColumn(name = "company_master_id", referencedColumnName = "id")
+    private CompanyMaster company_master_id;
+
 
 
 
