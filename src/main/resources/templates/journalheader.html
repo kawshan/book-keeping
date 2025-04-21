@@ -45,7 +45,7 @@
             <div class="col-md-12">
                 <button type="button" class="btn btn-warning fw-bold"
                         style="width: 15%; color: whitesmoke; border: 1px solid black;"
-                        onclick="refillPettyCashHeader(window['editOb'],window['editRow'])">
+                        onclick="refillJournalHeader(window['editOb'],window['editRow'])">
                     <i class="fa-solid fa-recycle fa-beat"></i> Refill
                 </button>
                 <button type="button" class="btn btn-danger fw-bold"
@@ -93,7 +93,7 @@
             <div class="col-md-4">
                 <label for="selectCompany" class="form-label">Select Company</label>
                 <select id="selectCompany" class="form-select" style="color: gray; height: 80%; font-weight: bold"
-                        onchange="selectDBValidator(this,'','journalHeader','company_master_id');"></select>
+                        onchange="selectDBValidator(this,'','journalHeader','company_master_id'); customizeLedgerAccounts(this)"></select>
 <!--                        onchange="selectDBValidator(this,'','pettyCashHeader','company_master_id'); customizeLedgerAccounts(this)"></select>-->
             </div>
             <div class="col-md-4"></div>
@@ -126,6 +126,87 @@
 </div>
 <!--journal header area end-->
 
+
+
+<!-- journal detail area start-->
+<div class="p-4">
+    <form onsubmit="return false">
+        <table class="table table-bordered" style="height: 100px">
+
+            <tr>
+
+                <td style="width: 10%">
+                    <label for="selectLedgerAcc" class="form-label">Ac/Name</label>
+                    <select id="selectLedgerAcc" class="form-select fw-bold" style="height: 60px" onchange="selectDBValidator(this,'','journalDetails','ledger_account_id')"></select>
+                </td>
+
+
+                <td style="width: 10%">
+                    <label for="textJournalDetailsDebit" class="form-label">Debit</label>
+                    <input type="number" id="textJournalDetailsDebit" class="form-control text-start fw-bold" style="height: 60px;" placeholder="Enter Debit" onkeyup="textValidator(this,'','journalDetails','journal_details_debit')">
+                </td>
+
+
+                <td style="width: 10%">
+                    <label for="textJournalDetailsCredit" class="form-label">Credit</label>
+                    <input type="text" id="textJournalDetailsCredit" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Credit" onkeyup="textValidator(this,'','journalDetails','journal_details_credit')">
+                </td>
+
+
+                <td class="text-end">
+                    <button type="button" class="btn btn-lg btn-warning" style="pointer-events: all; margin-top: 20px" onclick="updateJournalDetails()" id="buttonJournalDetailsUpdate">Update</button>
+                    <button type="button" class="btn btn-lg btn-success" style="pointer-events: all; margin-top: 20px" onclick="saveJournalDetails()" id="buttonJournalDetailsAdd">Add</button>
+                </td>
+
+
+            </tr>
+
+
+        </table>
+    </form>
+
+
+    <div class="row">
+        <div class="col-md-5">
+            <!--                div modify button 2 start-->
+            <div id="divModifyButton3" class="d-none">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-warning fw-bold"
+                            style="width: 15%; color: whitesmoke; border: 1px solid black;"
+                            onclick="refillJournalDetails(window['editOb'],window['editRow'])">
+                        <i class="fa-solid fa-recycle fa-beat"></i> Refill
+                    </button>
+                    <button type="button" class="btn btn-danger fw-bold"
+                            style=" width: 15%; color: whitesmoke; border: 1px solid black; pointer-events: all"
+                            onclick="deleteJournalDetails(window['editOb'],window['editRow'])">
+                        <i class="fa-solid fa-trash fa-beat"></i> Delete
+                    </button>
+                </div>
+            </div>
+            <!--                div modify button 3 end-->
+        </div>
+    </div>
+
+</div>
+<!-- journal detail area end-->
+
+
+
+
+<!--journal details table area start-->
+<div class="p-5 d-none" id="divJournalDetails">
+    <table class="table table-bordered" id="tableJournalDetails">
+        <thead>
+        <th>#</th>
+        <th>Account Name</th>
+        <th>Credit</th>
+        <th>Debit</th>
+        <th>Action</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<!--journal details table area end-->
 
 
 
