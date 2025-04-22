@@ -13,5 +13,11 @@ public interface JournalDetailsDao extends JpaRepository<JournalDetails,Integer>
     public List<JournalDetails> getAllJournalDetailsByHeaderKey(String headerKey);
 
 
+    @Query(value = "select sum(journal_details_credit) from journal_details where journal_details_header_key=?1",nativeQuery = true)
+    public String getCreditFromHeaderKey(String headerKey);
+
+    @Query(value = "select sum(journal_details_debit) from journal_details where journal_details_header_key=?1",nativeQuery = true)
+    public String getDebitFromHeaderKey(String headerKey);
+
 
 }

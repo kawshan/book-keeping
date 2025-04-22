@@ -142,14 +142,14 @@
 
 
                 <td style="width: 10%">
-                    <label for="textJournalDetailsDebit" class="form-label">Debit</label>
-                    <input type="number" id="textJournalDetailsDebit" class="form-control text-start fw-bold" style="height: 60px;" placeholder="Enter Debit" onkeyup="textValidator(this,'','journalDetails','journal_details_debit')">
+                    <label for="textJournalDetailsCredit" class="form-label">Credit</label>
+                    <input type="text" id="textJournalDetailsCredit" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Credit" onkeyup="textValidator(this,'','journalDetails','journal_details_credit')">
                 </td>
 
 
                 <td style="width: 10%">
-                    <label for="textJournalDetailsCredit" class="form-label">Credit</label>
-                    <input type="text" id="textJournalDetailsCredit" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Credit" onkeyup="textValidator(this,'','journalDetails','journal_details_credit')">
+                    <label for="textJournalDetailsDebit" class="form-label">Debit</label>
+                    <input type="number" id="textJournalDetailsDebit" class="form-control text-start fw-bold" style="height: 60px;" placeholder="Enter Debit" onkeyup="textValidator(this,'','journalDetails','journal_details_debit')">
                 </td>
 
 
@@ -192,7 +192,6 @@
 
 
 
-
 <!--journal details table area start-->
 <div class="p-5 d-none" id="divJournalDetails">
     <table class="table table-bordered" id="tableJournalDetails">
@@ -204,19 +203,18 @@
         <th>Action</th>
         </thead>
         <tbody></tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="text-end" id="tFootCredit"></td>
+                <td class="text-end" id="tFootDebit"></td>
+                <td></td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 <!--journal details table area end-->
-
-
-
-
-
-
-
-
-
-
 
 
 

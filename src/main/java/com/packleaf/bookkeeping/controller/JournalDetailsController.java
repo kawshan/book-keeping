@@ -64,5 +64,20 @@ public class JournalDetailsController {
     }
 
 
+    @GetMapping(value = "/getCredit/{headerKey}")
+    public String getCredit(@PathVariable("headerKey") String headerKey){
+       return journalDetailsDao.getCreditFromHeaderKey(headerKey);
+    }
+
+
+    @GetMapping(value = "/getDebit/{headerKey}")
+    public String getDebit(@PathVariable("headerKey") String headerKey){
+        return journalDetailsDao.getDebitFromHeaderKey(headerKey);
+    }
+
+
+
+
+
 
 }

@@ -107,6 +107,7 @@ const refillJournalHeader = (ob) => {
     textDescription.value=journalHeader.journal_header_description;
 
     refreshJournalDetailsForm();
+    getCreditAndDebitFromHeaderKey();
     refreshJournalDetailsTable();
 
     buttonJournalDetailsAdd.disabled=false;
@@ -258,8 +259,8 @@ const refreshJournalDetailsTable = () => {
 
     const displayProperty = [
         {dataType: 'function', propertyName: getLedgerAccountName},
-        {dataType: 'function', propertyName: getDebit},
         {dataType: 'function', propertyName: getCredit},
+        {dataType: 'function', propertyName: getDebit},
     ];
 
     if ($.fn.DataTable.isDataTable("#tableJournalDetails")) {
@@ -280,12 +281,12 @@ const getLedgerAccountName = (ob) => {
 
 
 const getDebit = (ob) => {
-    return `<p class="text-end">${ob.journal_details_debit}</p>`
+    return `<p class="text-end">${ob.journal_details_debit==null?"":ob.journal_details_debit}</p>`
 }
 
 
 const getCredit = (ob) => {
-    return `<p class="text-end">${ob.journal_details_credit}</p>`
+    return `<p class="text-end">${ob.journal_details_credit==null?"":ob.journal_details_credit}</p>`
 }
 
 
@@ -323,6 +324,7 @@ const saveJournalDetails = () => {
                 alert(`Save Successful`);
                 refreshJournalDetailsForm();
                 refreshJournalDetailsTable();
+                getCreditAndDebitFromHeaderKey();
             } else {
                 alert(`Save Unsuccessful \n ${postServerResponse}`);
             }
@@ -381,6 +383,7 @@ const updateJournalDetails = () => {
             if (putServerResponse == "ok") {
                 alert(`Update Successful`)
                 refreshJournalDetailsForm();
+                getCreditAndDebitFromHeaderKey();
                 refreshJournalDetailsTable();
 
                 buttonJournalDetailsUpdate.disabled=true;
@@ -413,6 +416,7 @@ const deleteJournalDetails = (ob) => {
         if (deleteServerResponse == "ok") {
             alert("delete successful");
             refreshJournalDetailsForm();
+            getCreditAndDebitFromHeaderKey();
             refreshJournalDetailsTable();
             divModifyButton3.classList.add("d-none");
         } else {
@@ -423,7 +427,19 @@ const deleteJournalDetails = (ob) => {
 
 
 
+const getCreditAndDebitFromHeaderKey = ()=>{
 
+    const getCreditServerResponse = ajaxGetRequest(`/journal-details/getCredit/${textCode.value}`);
+    const getDebitServerResponse = ajaxGetRequest(`/journal-details/getDebit/${textCode.value}`)
+
+
+    tFootCredit.innerHTML=Number(getCreditServerResponse).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    tFootDebit.innerHTML=Number(getDebitServerResponse).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+
+
+
+}
 
 
 
