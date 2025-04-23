@@ -28,6 +28,9 @@ public class JournalDetails {
     @Column(name = "journal_details_header_key")
     private String journal_details_header_key;
 
+    @Column(name = "journal_details_description")
+    private String journal_details_description;
+
     @ManyToOne
     @JoinColumn(name = "ledger_account_id",referencedColumnName = "id")
     private LedgerAccount ledger_account_id;

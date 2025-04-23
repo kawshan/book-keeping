@@ -140,6 +140,10 @@
                     <select id="selectLedgerAcc" class="form-select fw-bold" style="height: 60px" onchange="selectDBValidator(this,'','journalDetails','ledger_account_id')"></select>
                 </td>
 
+                <td style="width: 40%">
+                    <label for="textJournalDetailsDescription" class="form-label">Description</label>
+                    <input type="text" id="textJournalDetailsDescription" class="form-control text-start fw-bold" style="height: 60px" placeholder="Enter Description" onkeyup="textValidator(this,'','journalDetails','journal_details_description')">
+                </td>
 
                 <td style="width: 10%">
                     <label for="textJournalDetailsCredit" class="form-label">Credit</label>
@@ -198,6 +202,7 @@
         <thead>
         <th>#</th>
         <th>Account Name</th>
+        <th>Description</th>
         <th>Credit</th>
         <th>Debit</th>
         <th>Action</th>
@@ -205,6 +210,7 @@
         <tbody></tbody>
         <tfoot>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td class="text-end" id="tFootCredit"></td>
@@ -231,7 +237,7 @@
                 <div class="row">
                     <div class="col-md-10"></div>
                     <div class="col-md-2">
-                        <button type="button" class="btn btn-dark" onclick="loadFullPettyCashHeaderTable()"
+                        <button type="button" class="btn btn-dark" onclick="loadFullJournalHeader()"
                                 id="buttonLoadFullTable">Load Full table
                         </button>
                     </div>
@@ -255,14 +261,14 @@
 
 
                 <!--table invoice full header start-->
-                <div class="card m-4 d-none" id="divPettyCashFullHeader">
-                    <table class="table table-hover table-striped" id="tableFullPettyCashHeader">
+                <div class="card m-4 d-none" id="divJournalFullHeader">
+                    <table class="table table-hover table-striped" id="tableFullJournalHeader">
                         <thead>
                         <th>#</th>
                         <th>Company</th>
+                        <th>Code</th>
                         <th>Date</th>
-                        <th>Number</th>
-                        <th>From Acc</th>
+                        <th>Description</th>
                         <th>Action</th>
                         </thead>
                         <tbody></tbody>

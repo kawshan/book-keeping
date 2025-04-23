@@ -3,6 +3,7 @@ package com.packleaf.bookkeeping.controller;
 import com.packleaf.bookkeeping.dao.JournalHeaderDao;
 import com.packleaf.bookkeeping.entity.JournalHeader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class JournalHeaderController {
 
     @GetMapping(value = "/findall")
     public List<JournalHeader> findAllJournalHeaders(){
-        return journalHeaderDao.findAll();
+        return journalHeaderDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
 
 

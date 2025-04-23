@@ -46,6 +46,9 @@ const customizeLedgerAccounts = (fieldId)=>{
 
 const refreshJournalHeaderTable = () => {
 
+    divJournalHeader.classList.remove('d-none');
+    divJournalFullHeader.classList.add("d-none");
+
     recentHundredJournalList = ajaxGetRequest("/journal-header/getRecentHundredJournalHeaders");
 
     const displayProperty = [
@@ -221,6 +224,30 @@ const deleteJournalHeader = (ob) => {
 // need to implement delete journal details when deleting header..
 
 
+const loadFullJournalHeader = ()=>{
+
+    divJournalHeader.classList.add("d-none");
+    divJournalFullHeader.classList.remove('d-none');
+
+
+    recentHundredJournalList = ajaxGetRequest("/journal-header/findall");
+
+    const displayProperty = [
+        {dataType: 'function', propertyName: getCompany},
+        {dataType: 'text', propertyName: 'journal_header_key'},
+        {dataType: 'text', propertyName: 'journal_header_date'},
+        {dataType: 'text', propertyName: 'journal_header_description'},
+    ];
+
+    if ($.fn.DataTable.isDataTable("#tableFullJournalHeader")) {
+        $("#tableFullJournalHeader").DataTable().destroy();
+    }
+
+    fillDataIntoTable(tableFullJournalHeader, recentHundredJournalList, displayProperty, true, divModifyButton2)
+    $("#tableFullJournalHeader").dataTable();
+
+}
+
 // header section finished... from here we have details section
 
 const refreshJournalDetailsForm = () => {
@@ -231,12 +258,14 @@ const refreshJournalDetailsForm = () => {
     selectLedgerAcc.style.border = "2px solid #ced4da";
     textJournalDetailsDebit.style.border = "2px solid #ced4da";
     textJournalDetailsCredit.style.border = "2px solid #ced4da";
+    textJournalDetailsDescription.style.border = "2px solid #ced4da";
 
     ledgerAccountList = ajaxGetRequest("/ledgerAccount/findAll")
     fillDataIntoSelect(selectLedgerAcc, "Select Ledger Account", ledgerAccountList, 'ledger_account_name')
 
     textJournalDetailsDebit.value = "";
     textJournalDetailsCredit.value = "";
+    textJournalDetailsDescription.value = "";
 
 
     if (selectCompany.value=="Select Company"){
@@ -259,6 +288,7 @@ const refreshJournalDetailsTable = () => {
 
     const displayProperty = [
         {dataType: 'function', propertyName: getLedgerAccountName},
+        {dataType: 'text', propertyName: 'journal_details_description'},
         {dataType: 'function', propertyName: getCredit},
         {dataType: 'function', propertyName: getDebit},
     ];
@@ -281,12 +311,12 @@ const getLedgerAccountName = (ob) => {
 
 
 const getDebit = (ob) => {
-    return `<p class="text-end">${ob.journal_details_debit==null?"":ob.journal_details_debit}</p>`
+    return `<p class="text-end">${ob.journal_details_debit==null?"":Number(ob.journal_details_debit).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p>`
 }
 
 
 const getCredit = (ob) => {
-    return `<p class="text-end">${ob.journal_details_credit==null?"":ob.journal_details_credit}</p>`
+    return `<p class="text-end">${ob.journal_details_credit==null?"":Number(ob.journal_details_credit).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2})}</p>`
 }
 
 
@@ -344,6 +374,7 @@ const refillJournalDetails = (ob) => {
 
     textJournalDetailsDebit.value = journalDetails.journal_details_debit
     textJournalDetailsCredit.value = journalDetails.journal_details_credit
+    textJournalDetailsDescription.value = journalDetails.journal_details_description
 
     buttonJournalDetailsUpdate.disabled=false;
     buttonJournalDetailsUpdate.style.cursor="default";
@@ -367,6 +398,10 @@ const checkUpdatesJournalDetails = () => {
 
     if (journalDetails.journal_details_debit != oldjournalDetails.journal_details_debit) {
         updates = updates + "Debit Amount Is Updated \n";
+    }
+
+    if (journalDetails.journal_details_description != oldjournalDetails.journal_details_description) {
+        updates = updates + "Description Is Updated \n";
     }
 
 
